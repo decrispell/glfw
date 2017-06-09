@@ -416,3 +416,18 @@ if (GLFW_INSTALL)
     endif()
 endif()
 
+#--------------------------------------------------------------------
+# Pass list of libraries and include directories to the
+# parent, if one exists.
+#--------------------------------------------------------------------
+if(NOT ${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
+  message(STATUS "EXPORTING GLFW libs and includes")
+  list(APPEND glfw_INCLUDE_DIRS "${GLFW_SOURCE_DIR}/include")
+  set(glfw_INCLUDE_DIRS ${glfw_INCLUDE_DIRS} PARENT_SCOPE)
+  list(APPEND glfw_LIBRARIES glfw)
+  set(glfw_LIBRARIES ${glfw_LIBRARIES} PARENT_SCOPE)
+  message("Exporting glfw_INCLUDE_DIRS = ${glfw_INCLUDE_DIRS}")
+  message("Exporting glfw_LIBRARIES = ${glfw_LIBRARIES}")
+else()
+  message(STATUS "NOT Exporting GLFW libs and includes")
+endif()
